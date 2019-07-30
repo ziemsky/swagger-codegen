@@ -51,7 +51,9 @@
           <parallel>methods</parallel>
           <forkMode>pertest</forkMode>
           <useUnlimitedThreads>true</useUnlimitedThreads>
-          <threadCountMethods>10</threadCountMethods>
+          <!--
+                    <threadCountMethods>10</threadCountMethods>
+          -->
         </configuration>
       </plugin>
       <plugin>
@@ -71,6 +73,7 @@
 
       <!-- attach test jar -->
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.0.2</version>
         <executions>
@@ -118,8 +121,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>11</source>
-          <target>11</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
