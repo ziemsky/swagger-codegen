@@ -74,7 +74,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Input number as post body (optional)</param>
         /// <returns>OuterNumber</returns>
-        OuterNumber FakeOuterNumberSerialize (BigDecimal body = null);
+        OuterNumber FakeOuterNumberSerialize (decimal? body = null);
 
         /// <summary>
         /// 
@@ -85,7 +85,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Input number as post body (optional)</param>
         /// <returns>ApiResponse of OuterNumber</returns>
-        ApiResponse<OuterNumber> FakeOuterNumberSerializeWithHttpInfo (BigDecimal body = null);
+        ApiResponse<OuterNumber> FakeOuterNumberSerializeWithHttpInfo (decimal? body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -137,7 +137,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
         /// <returns></returns>
-        void TestEndpointParameters ( body);
+        void TestEndpointParameters (Object body);
 
         /// <summary>
         /// Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
@@ -148,7 +148,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> TestEndpointParametersWithHttpInfo ( body);
+        ApiResponse<Object> TestEndpointParametersWithHttpInfo (Object body);
         /// <summary>
         /// To test enum parameters
         /// </summary>
@@ -163,7 +163,7 @@ namespace IO.Swagger.Api
         /// <param name="enumQueryString">Query parameter enum test (string) (optional)</param>
         /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
         /// <returns></returns>
-        void TestEnumParameters ( body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null);
+        void TestEnumParameters (Object body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null);
 
         /// <summary>
         /// To test enum parameters
@@ -179,7 +179,7 @@ namespace IO.Swagger.Api
         /// <param name="enumQueryString">Query parameter enum test (string) (optional)</param>
         /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> TestEnumParametersWithHttpInfo ( body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null);
+        ApiResponse<Object> TestEnumParametersWithHttpInfo (Object body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null);
         /// <summary>
         /// test inline additionalProperties
         /// </summary>
@@ -210,7 +210,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
         /// <returns></returns>
-        void TestJsonFormData ( body);
+        void TestJsonFormData (Object body);
 
         /// <summary>
         /// test json serialization of form data
@@ -221,7 +221,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> TestJsonFormDataWithHttpInfo ( body);
+        ApiResponse<Object> TestJsonFormDataWithHttpInfo (Object body);
         #endregion Synchronous Operations
     }
 
@@ -239,6 +239,17 @@ namespace IO.Swagger.Api
         public FakeApi(String basePath)
         {
             this.Configuration = new IO.Swagger.Client.Configuration { BasePath = basePath };
+
+            ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FakeApi"/> class
+        /// </summary>
+        /// <returns></returns>
+        public FakeApi()
+        {
+            this.Configuration = IO.Swagger.Client.Configuration.Default;
 
             ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
         }
@@ -374,7 +385,6 @@ namespace IO.Swagger.Api
                 localVarPostBody = body; // byte array
             }
 
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -389,7 +399,7 @@ namespace IO.Swagger.Api
             }
 
             return new ApiResponse<OuterBoolean>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (OuterBoolean) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(OuterBoolean)));
         }
 
@@ -445,7 +455,6 @@ namespace IO.Swagger.Api
                 localVarPostBody = body; // byte array
             }
 
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -460,7 +469,7 @@ namespace IO.Swagger.Api
             }
 
             return new ApiResponse<OuterComposite>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (OuterComposite) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(OuterComposite)));
         }
 
@@ -470,7 +479,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Input number as post body (optional)</param>
         /// <returns>OuterNumber</returns>
-        public OuterNumber FakeOuterNumberSerialize (BigDecimal body = null)
+        public OuterNumber FakeOuterNumberSerialize (decimal? body = null)
         {
              ApiResponse<OuterNumber> localVarResponse = FakeOuterNumberSerializeWithHttpInfo(body);
              return localVarResponse.Data;
@@ -482,7 +491,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">Input number as post body (optional)</param>
         /// <returns>ApiResponse of OuterNumber</returns>
-        public ApiResponse< OuterNumber > FakeOuterNumberSerializeWithHttpInfo (BigDecimal body = null)
+        public ApiResponse< OuterNumber > FakeOuterNumberSerializeWithHttpInfo (decimal? body = null)
         {
 
             var localVarPath = "/fake/outer/number";
@@ -516,7 +525,6 @@ namespace IO.Swagger.Api
                 localVarPostBody = body; // byte array
             }
 
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -531,7 +539,7 @@ namespace IO.Swagger.Api
             }
 
             return new ApiResponse<OuterNumber>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (OuterNumber) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(OuterNumber)));
         }
 
@@ -587,7 +595,6 @@ namespace IO.Swagger.Api
                 localVarPostBody = body; // byte array
             }
 
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -602,7 +609,7 @@ namespace IO.Swagger.Api
             }
 
             return new ApiResponse<OuterString>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (OuterString) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(OuterString)));
         }
 
@@ -661,7 +668,6 @@ namespace IO.Swagger.Api
                 localVarPostBody = body; // byte array
             }
 
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -676,7 +682,7 @@ namespace IO.Swagger.Api
             }
 
             return new ApiResponse<Client>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (Client) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Client)));
         }
 
@@ -686,7 +692,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
         /// <returns></returns>
-        public void TestEndpointParameters ( body)
+        public void TestEndpointParameters (Object body)
         {
              TestEndpointParametersWithHttpInfo(body);
         }
@@ -697,7 +703,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> TestEndpointParametersWithHttpInfo ( body)
+        public ApiResponse<Object> TestEndpointParametersWithHttpInfo (Object body)
         {
             // verify the required parameter 'body' is set
             if (body == null)
@@ -733,7 +739,6 @@ namespace IO.Swagger.Api
             {
                 localVarPostBody = body; // byte array
             }
-
             // authentication (http_basic_test) required
             // http basic authentication required
             if (!String.IsNullOrEmpty(this.Configuration.Username) || !String.IsNullOrEmpty(this.Configuration.Password))
@@ -755,7 +760,7 @@ namespace IO.Swagger.Api
             }
 
             return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 null);
         }
 
@@ -770,7 +775,7 @@ namespace IO.Swagger.Api
         /// <param name="enumQueryString">Query parameter enum test (string) (optional)</param>
         /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
         /// <returns></returns>
-        public void TestEnumParameters ( body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null)
+        public void TestEnumParameters (Object body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null)
         {
              TestEnumParametersWithHttpInfo(body, enumHeaderStringArray, enumHeaderString, enumQueryStringArray, enumQueryString, enumQueryInteger);
         }
@@ -786,7 +791,7 @@ namespace IO.Swagger.Api
         /// <param name="enumQueryString">Query parameter enum test (string) (optional)</param>
         /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> TestEnumParametersWithHttpInfo ( body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null)
+        public ApiResponse<Object> TestEnumParametersWithHttpInfo (Object body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null)
         {
 
             var localVarPath = "/fake";
@@ -824,7 +829,6 @@ namespace IO.Swagger.Api
                 localVarPostBody = body; // byte array
             }
 
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -839,7 +843,7 @@ namespace IO.Swagger.Api
             }
 
             return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 null);
         }
 
@@ -896,7 +900,6 @@ namespace IO.Swagger.Api
                 localVarPostBody = body; // byte array
             }
 
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -911,7 +914,7 @@ namespace IO.Swagger.Api
             }
 
             return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 null);
         }
 
@@ -921,7 +924,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
         /// <returns></returns>
-        public void TestJsonFormData ( body)
+        public void TestJsonFormData (Object body)
         {
              TestJsonFormDataWithHttpInfo(body);
         }
@@ -932,7 +935,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> TestJsonFormDataWithHttpInfo ( body)
+        public ApiResponse<Object> TestJsonFormDataWithHttpInfo (Object body)
         {
             // verify the required parameter 'body' is set
             if (body == null)
@@ -968,7 +971,6 @@ namespace IO.Swagger.Api
                 localVarPostBody = body; // byte array
             }
 
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -983,7 +985,7 @@ namespace IO.Swagger.Api
             }
 
             return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 null);
         }
 

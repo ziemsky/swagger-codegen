@@ -134,7 +134,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 <a name="fakeouternumberserialize"></a>
 # **FakeOuterNumberSerialize**
-> OuterNumber FakeOuterNumberSerialize (BigDecimal body = null)
+> OuterNumber FakeOuterNumberSerialize (decimal? body = null)
 
 
 
@@ -155,7 +155,7 @@ namespace Example
         public void main()
         {
             var apiInstance = new FakeApi();
-            var body = new BigDecimal(); // BigDecimal | Input number as post body (optional) 
+            var body = new decimal?(); // decimal? | Input number as post body (optional) 
 
             try
             {
@@ -175,7 +175,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**BigDecimal**](BigDecimal.md)| Input number as post body | [optional] 
+ **body** | [**decimal?**](decimal?.md)| Input number as post body | [optional] 
 
 ### Return type
 
@@ -312,7 +312,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 <a name="testendpointparameters"></a>
 # **TestEndpointParameters**
-> void TestEndpointParameters ( body)
+> void TestEndpointParameters (Object body)
 
 Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
 
@@ -337,7 +337,7 @@ namespace Example
             Configuration.Default.Password = "YOUR_PASSWORD";
 
             var apiInstance = new FakeApi();
-            var body = new (); //  | 
+            var body = new Object(); // Object | 
 
             try
             {
@@ -357,7 +357,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [****](.md)|  | 
+ **body** | [**Object**](Object.md)|  | 
 
 ### Return type
 
@@ -375,7 +375,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 <a name="testenumparameters"></a>
 # **TestEnumParameters**
-> void TestEnumParameters ( body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null)
+> void TestEnumParameters (Object body = null, List<string> enumHeaderStringArray = null, string enumHeaderString = null, List<string> enumQueryStringArray = null, string enumQueryString = null, int? enumQueryInteger = null)
 
 To test enum parameters
 
@@ -396,12 +396,12 @@ namespace Example
         public void main()
         {
             var apiInstance = new FakeApi();
-            var body = new (); //  |  (optional) 
+            var body = new Object(); // Object |  (optional) 
             var enumHeaderStringArray = new List<string>(); // List<string> | Header parameter enum test (string array) (optional) 
-            var enumHeaderString = new string(); // string | Header parameter enum test (string) (optional) 
+            var enumHeaderString = "enumHeaderString_example";  // string | Header parameter enum test (string) (optional) 
             var enumQueryStringArray = new List<string>(); // List<string> | Query parameter enum test (string array) (optional) 
-            var enumQueryString = new string(); // string | Query parameter enum test (string) (optional) 
-            var enumQueryInteger = new int?(); // int? | Query parameter enum test (double) (optional) 
+            var enumQueryString = "enumQueryString_example";  // string | Query parameter enum test (string) (optional) 
+            var enumQueryInteger = 56;  // int? | Query parameter enum test (double) (optional) 
 
             try
             {
@@ -421,12 +421,12 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [****](.md)|  | [optional] 
+ **body** | [**Object**](Object.md)|  | [optional] 
  **enumHeaderStringArray** | [**List&lt;string&gt;**](string.md)| Header parameter enum test (string array) | [optional] 
- **enumHeaderString** | [**string**](string.md)| Header parameter enum test (string) | [optional] 
+ **enumHeaderString** | **string**| Header parameter enum test (string) | [optional] 
  **enumQueryStringArray** | [**List&lt;string&gt;**](string.md)| Query parameter enum test (string array) | [optional] 
- **enumQueryString** | [**string**](string.md)| Query parameter enum test (string) | [optional] 
- **enumQueryInteger** | [**int?**](int?.md)| Query parameter enum test (double) | [optional] 
+ **enumQueryString** | **string**| Query parameter enum test (string) | [optional] 
+ **enumQueryInteger** | **int?**| Query parameter enum test (double) | [optional] 
 
 ### Return type
 
@@ -501,7 +501,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 <a name="testjsonformdata"></a>
 # **TestJsonFormData**
-> void TestJsonFormData ( body)
+> void TestJsonFormData (Object body)
 
 test json serialization of form data
 
@@ -520,7 +520,7 @@ namespace Example
         public void main()
         {
             var apiInstance = new FakeApi();
-            var body = new (); //  | 
+            var body = new Object(); // Object | 
 
             try
             {
@@ -540,7 +540,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [****](.md)|  | 
+ **body** | [**Object**](Object.md)|  | 
 
 ### Return type
 
