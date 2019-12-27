@@ -39,12 +39,12 @@ namespace IO.Swagger.Model
             /// Enum GreaterThan for value: >
             /// </summary>
             [EnumMember(Value = ">")]
-            GreaterThan = 0,
+            GreaterThan = 1,
             /// <summary>
             /// Enum Dollar for value: $
             /// </summary>
             [EnumMember(Value = "$")]
-            Dollar = 1        }
+            Dollar = 2        }
         /// <summary>
         /// Form parameter enum test (string array)
         /// </summary>
@@ -62,17 +62,17 @@ namespace IO.Swagger.Model
             /// Enum Abc for value: _abc
             /// </summary>
             [EnumMember(Value = "_abc")]
-            Abc = 0,
+            Abc = 1,
             /// <summary>
             /// Enum Efg for value: -efg
             /// </summary>
             [EnumMember(Value = "-efg")]
-            Efg = 1,
+            Efg = 2,
             /// <summary>
             /// Enum Xyz for value: (xyz)
             /// </summary>
             [EnumMember(Value = "(xyz)")]
-            Xyz = 2        }
+            Xyz = 3        }
         /// <summary>
         /// Form parameter enum test (string)
         /// </summary>
@@ -90,12 +90,12 @@ namespace IO.Swagger.Model
             /// Enum NUMBER_1_DOT_1 for value: 1.1
             /// </summary>
             [EnumMember(Value = "1.1")]
-            NUMBER_1_DOT_1 = 0,
+            NUMBER_1_DOT_1 = 1,
             /// <summary>
             /// Enum NUMBER_MINUS_1_DOT_2 for value: -1.2
             /// </summary>
             [EnumMember(Value = "-1.2")]
-            NUMBER_MINUS_1_DOT_2 = 1        }
+            NUMBER_MINUS_1_DOT_2 = 2        }
         /// <summary>
         /// Query parameter enum test (double)
         /// </summary>

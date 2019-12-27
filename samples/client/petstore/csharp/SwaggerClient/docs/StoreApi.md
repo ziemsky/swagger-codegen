@@ -32,7 +32,7 @@ namespace Example
         public void main()
         {
             var apiInstance = new StoreApi();
-            var orderId = orderId_example;  // string | ID of the order that needs to be deleted
+            var orderId = "orderId_example";  // string | ID of the order that needs to be deleted
 
             try
             {

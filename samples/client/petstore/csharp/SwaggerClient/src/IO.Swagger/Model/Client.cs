@@ -24,35 +24,25 @@ using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
 namespace IO.Swagger.Model
 {
     /// <summary>
-    /// Body1
+    /// Client
     /// </summary>
     [DataContract]
-        public partial class Body1 :  IEquatable<Body1>, IValidatableObject
+        public partial class Client :  IEquatable<Client>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Body1" /> class.
+        /// Initializes a new instance of the <see cref="Client" /> class.
         /// </summary>
-        /// <param name="additionalMetadata">Additional data to pass to server.</param>
-        /// <param name="_file">file to upload.</param>
-        public Body1(string additionalMetadata = default(string), byte[] _file = default(byte[]))
+        /// <param name="_client">_client.</param>
+        public Client(string _client = default(string))
         {
-            this.AdditionalMetadata = additionalMetadata;
-            this.File = _file;
+            this._Client = _client;
         }
         
         /// <summary>
-        /// Additional data to pass to server
+        /// Gets or Sets _Client
         /// </summary>
-        /// <value>Additional data to pass to server</value>
-        [DataMember(Name="additionalMetadata", EmitDefaultValue=false)]
-        public string AdditionalMetadata { get; set; }
-
-        /// <summary>
-        /// file to upload
-        /// </summary>
-        /// <value>file to upload</value>
-        [DataMember(Name="file", EmitDefaultValue=false)]
-        public byte[] File { get; set; }
+        [DataMember(Name="client", EmitDefaultValue=false)]
+        public string _Client { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -61,9 +51,8 @@ namespace IO.Swagger.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Body1 {\n");
-            sb.Append("  AdditionalMetadata: ").Append(AdditionalMetadata).Append("\n");
-            sb.Append("  File: ").Append(File).Append("\n");
+            sb.Append("class Client {\n");
+            sb.Append("  _Client: ").Append(_Client).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -84,29 +73,24 @@ namespace IO.Swagger.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as Body1);
+            return this.Equals(input as Client);
         }
 
         /// <summary>
-        /// Returns true if Body1 instances are equal
+        /// Returns true if Client instances are equal
         /// </summary>
-        /// <param name="input">Instance of Body1 to be compared</param>
+        /// <param name="input">Instance of Client to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(Body1 input)
+        public bool Equals(Client input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.AdditionalMetadata == input.AdditionalMetadata ||
-                    (this.AdditionalMetadata != null &&
-                    this.AdditionalMetadata.Equals(input.AdditionalMetadata))
-                ) && 
-                (
-                    this.File == input.File ||
-                    (this.File != null &&
-                    this.File.Equals(input.File))
+                    this._Client == input._Client ||
+                    (this._Client != null &&
+                    this._Client.Equals(input._Client))
                 );
         }
 
@@ -119,10 +103,8 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.AdditionalMetadata != null)
-                    hashCode = hashCode * 59 + this.AdditionalMetadata.GetHashCode();
-                if (this.File != null)
-                    hashCode = hashCode * 59 + this.File.GetHashCode();
+                if (this._Client != null)
+                    hashCode = hashCode * 59 + this._Client.GetHashCode();
                 return hashCode;
             }
         }

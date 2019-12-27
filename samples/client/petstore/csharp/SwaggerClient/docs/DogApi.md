@@ -89,7 +89,7 @@ namespace Example
         {
             var apiInstance = new DogApi();
             var dogId = 789;  // long? | Dog id to delete
-            var apiKey = apiKey_example;  // string |  (optional) 
+            var apiKey = "apiKey_example";  // string |  (optional) 
 
             try
             {
@@ -265,8 +265,8 @@ namespace Example
         {
             var apiInstance = new DogApi();
             var animalId = 789;  // long? | ID of dog that needs to be updated
-            var name = name_example;  // string |  (optional) 
-            var status = status_example;  // string |  (optional) 
+            var name = "name_example";  // string |  (optional) 
+            var status = "status_example";  // string |  (optional) 
 
             try
             {

@@ -24,36 +24,18 @@ using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
 namespace IO.Swagger.Model
 {
     /// <summary>
-    /// Body1
+    /// OneOfSinglePetResponsePet
     /// </summary>
     [DataContract]
-        public partial class Body1 :  IEquatable<Body1>, IValidatableObject
+        public partial class OneOfSinglePetResponsePet :  IEquatable<OneOfSinglePetResponsePet>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Body1" /> class.
+        /// Initializes a new instance of the <see cref="OneOfSinglePetResponsePet" /> class.
         /// </summary>
-        /// <param name="additionalMetadata">Additional data to pass to server.</param>
-        /// <param name="_file">file to upload.</param>
-        public Body1(string additionalMetadata = default(string), byte[] _file = default(byte[]))
+        public OneOfSinglePetResponsePet()
         {
-            this.AdditionalMetadata = additionalMetadata;
-            this.File = _file;
         }
         
-        /// <summary>
-        /// Additional data to pass to server
-        /// </summary>
-        /// <value>Additional data to pass to server</value>
-        [DataMember(Name="additionalMetadata", EmitDefaultValue=false)]
-        public string AdditionalMetadata { get; set; }
-
-        /// <summary>
-        /// file to upload
-        /// </summary>
-        /// <value>file to upload</value>
-        [DataMember(Name="file", EmitDefaultValue=false)]
-        public byte[] File { get; set; }
-
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -61,9 +43,7 @@ namespace IO.Swagger.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Body1 {\n");
-            sb.Append("  AdditionalMetadata: ").Append(AdditionalMetadata).Append("\n");
-            sb.Append("  File: ").Append(File).Append("\n");
+            sb.Append("class OneOfSinglePetResponsePet {\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -84,30 +64,20 @@ namespace IO.Swagger.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as Body1);
+            return this.Equals(input as OneOfSinglePetResponsePet);
         }
 
         /// <summary>
-        /// Returns true if Body1 instances are equal
+        /// Returns true if OneOfSinglePetResponsePet instances are equal
         /// </summary>
-        /// <param name="input">Instance of Body1 to be compared</param>
+        /// <param name="input">Instance of OneOfSinglePetResponsePet to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(Body1 input)
+        public bool Equals(OneOfSinglePetResponsePet input)
         {
             if (input == null)
                 return false;
 
-            return 
-                (
-                    this.AdditionalMetadata == input.AdditionalMetadata ||
-                    (this.AdditionalMetadata != null &&
-                    this.AdditionalMetadata.Equals(input.AdditionalMetadata))
-                ) && 
-                (
-                    this.File == input.File ||
-                    (this.File != null &&
-                    this.File.Equals(input.File))
-                );
+            return false;
         }
 
         /// <summary>
@@ -119,10 +89,6 @@ namespace IO.Swagger.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.AdditionalMetadata != null)
-                    hashCode = hashCode * 59 + this.AdditionalMetadata.GetHashCode();
-                if (this.File != null)
-                    hashCode = hashCode * 59 + this.File.GetHashCode();
                 return hashCode;
             }
         }
