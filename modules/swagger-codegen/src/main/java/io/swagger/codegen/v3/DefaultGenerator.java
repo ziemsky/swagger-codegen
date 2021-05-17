@@ -884,7 +884,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
         */
         Set<String> operationParameters = new HashSet<>();
 
-        ensureOperationParametersNotNull(operation);
+        ensureParametersNotNull(operation);
 
         for (Parameter parameter : operation.getParameters()) {
             operationParameters.add(generateParameterId(parameter));
@@ -936,7 +936,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
 
     }
 
-    private void ensureOperationParametersNotNull(final Operation operation) {
+    private void ensureParametersNotNull(final Operation operation) {
         if (operation.getParameters() == null) {
             operation.setParameters(new ArrayList<>());
         }
