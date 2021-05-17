@@ -9,16 +9,29 @@ import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.parameters.Parameter;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.apache.commons.io.FileUtils;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 public class DefaultGeneratorTest {
 
-    @Rule
-    public TemporaryFolder temporaryFolder = TemporaryFolder.builder().assureDeletion().build();
+    private File tempDirectory;
+
+    @BeforeMethod
+    public void setUp() throws IOException {
+        tempDirectory = newTempDirectory();
+    }
+
+    @AfterMethod
+    public void tearDown() throws IOException {
+        deleteDirectoryWithContentIfExists(tempDirectory);
+    }
 
     @Test
     public void processPaths_propagatesAllPathParametersToAllOperations_whereOperationsHaveNoParameters_issueXXXX() {
@@ -61,7 +74,8 @@ public class DefaultGeneratorTest {
         assertEquals(expectedOperationParameters, actualOperations.get(6).getAllParams());
     }
 
-    private List<CodegenParameter> codegenParametersFrom(final Parameter pathParameterA, final Parameter pathParameterB) {
+    private List<CodegenParameter> codegenParametersFrom(final Parameter pathParameterA,
+                                                         final Parameter pathParameterB) {
         return asList(
             firstCodegenParameterFrom(pathParameterA),
             lastCodegenParameterFrom(pathParameterB)
@@ -98,7 +112,7 @@ public class DefaultGeneratorTest {
         final String irrelevantSpec = "irrelevant: spec";
 
         final ClientOptInput clientOptInput = new CodegenConfigurator()
-            .setOutputDir(temporaryFolder.getRoot().getAbsolutePath())
+            .setOutputDir(tempDirectory.getAbsolutePath())
             .setLang(irrelevantLang)
             .setInputSpec(irrelevantSpec)
             .toClientOptInput();
@@ -115,5 +129,18 @@ public class DefaultGeneratorTest {
 
     private Operation operationWithNoParameters() {
         return new Operation();
+    }
+
+    private File newTempDirectory() throws IOException {
+        final File tempFolder = Files.createTempDirectory("codegentest-").toFile();
+        tempFolder.deleteOnExit();
+
+        return tempFolder;
+    }
+
+    private void deleteDirectoryWithContentIfExists(final File directory) throws IOException {
+        if (directory != null) {
+            FileUtils.deleteDirectory(directory);
+        }
     }
 }
