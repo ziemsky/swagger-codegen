@@ -41,9 +41,9 @@ public class DefaultGeneratorTest {
 
         final Paths paths = new Paths().addPathItem("/path-item-with-parameters", pathItemWithParameters);
 
-        final List<CodegenParameter> expectedOperationParameters = asList(
-            firstCodegenParameterFrom(pathParameterA),
-            lastCodegenParameterFrom(pathParameterB)
+        final List<CodegenParameter> expectedOperationParameters = codegenParametersFrom(
+            pathParameterA,
+            pathParameterB
         );
 
         final DefaultGenerator defaultGenerator = defaultGeneratorWithMinimalConfig();
@@ -59,6 +59,13 @@ public class DefaultGeneratorTest {
         assertEquals(expectedOperationParameters, actualOperations.get(4).getAllParams());
         assertEquals(expectedOperationParameters, actualOperations.get(5).getAllParams());
         assertEquals(expectedOperationParameters, actualOperations.get(6).getAllParams());
+    }
+
+    private List<CodegenParameter> codegenParametersFrom(final Parameter pathParameterA, final Parameter pathParameterB) {
+        return asList(
+            firstCodegenParameterFrom(pathParameterA),
+            lastCodegenParameterFrom(pathParameterB)
+        );
     }
 
     private CodegenParameter lastCodegenParameterFrom(final Parameter pathParameterB) {
