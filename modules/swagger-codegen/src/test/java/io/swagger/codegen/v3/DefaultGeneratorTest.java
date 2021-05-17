@@ -63,7 +63,7 @@ public class DefaultGeneratorTest {
 
         // then
         final List<CodegenOperation> actualOperations = actualProcessedPaths.get("Default");
-        // operations in order emitted by DefaultCodegen
+        // operations in order emitted by DefaultGenerator
         assertOperationHasParametersWithNames(actualOperations.get(0), parameterNameA, parameterNameB); // get
         assertOperationHasParametersWithNames(actualOperations.get(1), parameterNameA, parameterNameB); // head
         assertOperationHasParametersWithNames(actualOperations.get(2), parameterNameA, parameterNameB); // put
@@ -97,7 +97,9 @@ public class DefaultGeneratorTest {
         return defaultGenerator;
     }
 
-    private void assertOperationHasParametersWithNames(final CodegenOperation codegenOperation, final String parameterNameA, final String parameterNameB) {
+    private void assertOperationHasParametersWithNames(final CodegenOperation codegenOperation,
+                                                       final String parameterNameA,
+                                                       final String parameterNameB) {
         assertThat(
             codegenOperation.getAllParams(),
             hasItems(
@@ -107,8 +109,16 @@ public class DefaultGeneratorTest {
         );
     }
 
+    private Matcher<CodegenParameter> codegenParameterWithBaseName(final String expectedParameterName) {
+        return new CustomTypeSafeMatcher<CodegenParameter>("parameter with name " + expectedParameterName) {
+            @Override protected boolean matchesSafely(final CodegenParameter actualCodegenParameter) {
+                return expectedParameterName.equals(actualCodegenParameter.baseName);
+            }
+        };
+    }
+
     private File newTempDirectory() throws IOException {
-        final File tempFolder = Files.createTempDirectory("codegentest-").toFile();
+        final File tempFolder = Files.createTempDirectory(getClass().getSimpleName() + "-").toFile();
         tempFolder.deleteOnExit();
 
         return tempFolder;
@@ -118,13 +128,5 @@ public class DefaultGeneratorTest {
         if (directory != null) {
             FileUtils.deleteDirectory(directory);
         }
-    }
-
-    private Matcher<CodegenParameter> codegenParameterWithBaseName(final String expectedParameterName) {
-        return new CustomTypeSafeMatcher<CodegenParameter>("parameter with name " + expectedParameterName) {
-            @Override protected boolean matchesSafely(final CodegenParameter actualCodegenParameter) {
-                return expectedParameterName.equals(actualCodegenParameter.baseName);
-            }
-        };
     }
 }
