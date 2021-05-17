@@ -883,17 +883,18 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
           i'm assuming "location" == "in"
         */
         Set<String> operationParameters = new HashSet<>();
-        if (operation.getParameters() != null) {
-            for (Parameter parameter : operation.getParameters()) {
-                operationParameters.add(generateParameterId(parameter));
-            }
+
+        ensureOperationParametersNotNull(operation);
+
+        for (Parameter parameter : operation.getParameters()) {
+            operationParameters.add(generateParameterId(parameter));
         }
 
         //need to propagate path level down to the operation
         if (path.getParameters() != null) {
             for (Parameter parameter : path.getParameters()) {
                 //skip propagation if a parameter with the same name is already defined at the operation level
-                if (!operationParameters.contains(generateParameterId(parameter)) && operation.getParameters() != null) {
+                if (!operationParameters.contains(generateParameterId(parameter))) {
                     operation.getParameters().add(parameter);
                 }
             }
@@ -933,6 +934,12 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
             }
         }
 
+    }
+
+    private void ensureOperationParametersNotNull(final Operation operation) {
+        if (operation.getParameters() == null) {
+            operation.setParameters(new ArrayList<>());
+        }
     }
 
     private static String generateParameterId(Parameter parameter) {
