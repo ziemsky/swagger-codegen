@@ -1,15 +1,16 @@
 package io.swagger.codegen.v3;
 
-import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.google.common.collect.ImmutableMap;
 import io.swagger.codegen.v3.config.CodegenConfigurator;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import org.apache.commons.io.FileUtils;
+import org.hamcrest.CustomTypeSafeMatcher;
+import org.hamcrest.Matcher;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Map;
 
 public class DefaultGeneratorTest {
 
@@ -37,12 +39,12 @@ public class DefaultGeneratorTest {
     public void processPaths_propagatesAllPathParametersToAllOperations_whereOperationsHaveNoParameters_issueXXXX() {
 
         // given
-        final Parameter pathParameterA = parameterWithName("path-parameter-a");
-        final Parameter pathParameterB = parameterWithName("path-parameter-b");
+        final String parameterNameA = "path-parameter-a";
+        final String parameterNameB = "path-parameter-b";
 
         final PathItem pathItemWithParameters = new PathItem()
-            .addParametersItem(pathParameterA)
-            .addParametersItem(pathParameterB)
+            .addParametersItem(parameterWithName(parameterNameA))
+            .addParametersItem(parameterWithName(parameterNameB))
 
             .get(operationWithNoParameters())
             .head(operationWithNoParameters())
@@ -54,57 +56,29 @@ public class DefaultGeneratorTest {
 
         final Paths paths = new Paths().addPathItem("/path-item-with-parameters", pathItemWithParameters);
 
-        final List<CodegenParameter> expectedOperationParameters = codegenParametersFrom(
-            pathParameterA,
-            pathParameterB
-        );
-
         final DefaultGenerator defaultGenerator = defaultGeneratorWithMinimalConfig();
 
         // when
-        final List<CodegenOperation> actualOperations = defaultGenerator.processPaths(paths).get("Default");
+        final Map<String, List<CodegenOperation>> actualProcessedPaths = defaultGenerator.processPaths(paths);
 
         // then
-        assertEquals(expectedOperationParameters, actualOperations.get(0).getAllParams());
-        assertEquals(expectedOperationParameters, actualOperations.get(1).getAllParams());
-        assertEquals(expectedOperationParameters, actualOperations.get(2).getAllParams());
-        assertEquals(expectedOperationParameters, actualOperations.get(3).getAllParams());
-        assertEquals(expectedOperationParameters, actualOperations.get(4).getAllParams());
-        assertEquals(expectedOperationParameters, actualOperations.get(5).getAllParams());
-        assertEquals(expectedOperationParameters, actualOperations.get(6).getAllParams());
+        final List<CodegenOperation> actualOperations = actualProcessedPaths.get("Default");
+        // operations in order emitted by DefaultCodegen
+        assertOperationHasParametersWithNames(actualOperations.get(0), parameterNameA, parameterNameB); // get
+        assertOperationHasParametersWithNames(actualOperations.get(1), parameterNameA, parameterNameB); // head
+        assertOperationHasParametersWithNames(actualOperations.get(2), parameterNameA, parameterNameB); // put
+        assertOperationHasParametersWithNames(actualOperations.get(3), parameterNameA, parameterNameB); // post
+        assertOperationHasParametersWithNames(actualOperations.get(4), parameterNameA, parameterNameB); // delete
+        assertOperationHasParametersWithNames(actualOperations.get(5), parameterNameA, parameterNameB); // patch
+        assertOperationHasParametersWithNames(actualOperations.get(6), parameterNameA, parameterNameB); // options
     }
 
-    private List<CodegenParameter> codegenParametersFrom(final Parameter pathParameterA,
-                                                         final Parameter pathParameterB) {
-        return asList(
-            firstCodegenParameterFrom(pathParameterA),
-            lastCodegenParameterFrom(pathParameterB)
-        );
+    private Parameter parameterWithName(final String s) {
+        return new Parameter().name(s);
     }
 
-    private CodegenParameter lastCodegenParameterFrom(final Parameter pathParameterB) {
-        final CodegenParameter expectedPathParameterB = new CodegenParameter();
-        expectedPathParameterB.baseName = pathParameterB.getName();
-        expectedPathParameterB.jsonSchema = "{\n  \"name\" : \"" + pathParameterB.getName() + "\"\n}";
-        expectedPathParameterB.secondaryParam = true;
-        expectedPathParameterB.vendorExtensions = ImmutableMap.of(
-            "x-codegen-hasMoreOptional", false,
-            "x-has-more", false
-        );
-        return expectedPathParameterB;
-    }
-
-    private CodegenParameter firstCodegenParameterFrom(final Parameter pathParameterA) {
-        final CodegenParameter expectedPathParameterA = new CodegenParameter();
-        expectedPathParameterA.baseName = pathParameterA.getName();
-        expectedPathParameterA.jsonSchema = "{\n  \"name\" : \"" + pathParameterA.getName() + "\"\n}";
-        expectedPathParameterA.secondaryParam = false;
-        expectedPathParameterA.vendorExtensions = ImmutableMap.of(
-            "x-codegen-hasMoreRequired", true,
-            "x-codegen-hasMoreOptional", true,
-            "x-has-more", true
-        );
-        return expectedPathParameterA;
+    private Operation operationWithNoParameters() {
+        return new Operation();
     }
 
     private DefaultGenerator defaultGeneratorWithMinimalConfig() {
@@ -123,12 +97,14 @@ public class DefaultGeneratorTest {
         return defaultGenerator;
     }
 
-    private Parameter parameterWithName(final String s) {
-        return new Parameter().name(s);
-    }
-
-    private Operation operationWithNoParameters() {
-        return new Operation();
+    private void assertOperationHasParametersWithNames(final CodegenOperation codegenOperation, final String parameterNameA, final String parameterNameB) {
+        assertThat(
+            codegenOperation.getAllParams(),
+            hasItems(
+                codegenParameterWithBaseName(parameterNameA),
+                codegenParameterWithBaseName(parameterNameB)
+            )
+        );
     }
 
     private File newTempDirectory() throws IOException {
@@ -142,5 +118,13 @@ public class DefaultGeneratorTest {
         if (directory != null) {
             FileUtils.deleteDirectory(directory);
         }
+    }
+
+    private Matcher<CodegenParameter> codegenParameterWithBaseName(final String expectedParameterName) {
+        return new CustomTypeSafeMatcher<CodegenParameter>("parameter with name " + expectedParameterName) {
+            @Override protected boolean matchesSafely(final CodegenParameter actualCodegenParameter) {
+                return expectedParameterName.equals(actualCodegenParameter.baseName);
+            }
+        };
     }
 }
